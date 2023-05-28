@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.security.sasl.AuthenticationException;
+import javax.validation.UnexpectedTypeException;
 import java.util.UUID;
 
 @Slf4j
@@ -30,6 +31,12 @@ public class ExceptionAdvice {
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorResponse handleAuthenticationException(AuthenticationException ex) {
+        return ErrorResponse.of(generateLogId(ex), ex);
+    }
+
+    @ExceptionHandler(UnexpectedTypeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleUnexpectedTypeException(UnexpectedTypeException ex) {
         return ErrorResponse.of(generateLogId(ex), ex);
     }
 
