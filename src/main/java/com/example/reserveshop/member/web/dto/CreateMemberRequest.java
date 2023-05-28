@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor
@@ -20,5 +21,7 @@ public class CreateMemberRequest {
     @NotBlank
     private final String phoneNumber;
     @NotBlank
+    private final String location;
+    @NotNull
     private final MemberType memberType;
 }
