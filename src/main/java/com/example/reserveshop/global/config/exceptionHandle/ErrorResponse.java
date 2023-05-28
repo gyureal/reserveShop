@@ -1,4 +1,4 @@
-package com.example.reserveshop.config.exceptionHandle;
+package com.example.reserveshop.global.config.exceptionHandle;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

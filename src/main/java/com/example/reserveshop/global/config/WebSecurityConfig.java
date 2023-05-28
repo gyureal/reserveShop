@@ -1,4 +1,4 @@
-package com.example.reserveshop.config;
+package com.example.reserveshop.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

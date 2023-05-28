@@ -1,4 +1,4 @@
-package com.example.reserveshop.config.exceptionHandle;
+package com.example.reserveshop.global.config.exceptionHandle;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
