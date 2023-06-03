@@ -1,6 +1,7 @@
 package com.example.reserveshop.member.domain;
 
 import com.example.reserveshop.member.domain.dto.MemberInfo;
+import com.example.reserveshop.member.vo.Address;
 import com.example.reserveshop.member.vo.LoginId;
 import com.example.reserveshop.member.vo.Password;
 import com.example.reserveshop.member.vo.PhoneNumber;
@@ -26,7 +27,7 @@ public class MemberService {
                 .password(Password.of(request.getPassword()))
                 .name(request.getMemberName())
                 .phoneNumber(PhoneNumber.of(request.getPhoneNumber()))
-                .location(request.getLocation())
+                .address(Address.of(request.getLocation()))
                 .build());
         return member.getId();
     }

@@ -1,11 +1,9 @@
 package com.example.reserveshop.member.domain.dto;
 
-import com.example.reserveshop.global.constant.MemberType;
 import com.example.reserveshop.member.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -27,7 +25,7 @@ public class MemberInfo {
                 .loginId(member.getLoginId().getValue())
                 .memberName(member.getName())
                 .phoneNumber(member.getPhoneNumber().getValue())
-                .location(member.getLocation())
+                .location(member.getAddress().getValue())
                 .memberType(member.getMemberType().name())
                 .createdAt(member.getCreatedAt())
                 .build();

@@ -1,6 +1,7 @@
 package com.example.reserveshop.member.domain;
 
 import com.example.reserveshop.global.constant.MemberType;
+import com.example.reserveshop.member.vo.Address;
 import com.example.reserveshop.member.vo.LoginId;
 import com.example.reserveshop.member.vo.Password;
 import com.example.reserveshop.member.vo.PhoneNumber;
@@ -30,7 +31,9 @@ public class Member {
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "phone_number"))
     private PhoneNumber phoneNumber;
-    private String location;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "address"))
+    private Address address;
     private MemberType memberType;
     @CreatedDate
     private LocalDateTime createdAt;
