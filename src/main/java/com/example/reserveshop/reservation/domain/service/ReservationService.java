@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
+    private static final String RESERVATION_NOT_FOUND = "예약정보를 찾을 수 없습니다.";
     private final ReservationRepository reservationRepository;
     private final MemberService memberService;
     private final StoreService storeService;
@@ -27,5 +28,10 @@ public class ReservationService {
                         .status(ReserveStatus.REQUEST)
                         .reserveDateTime(LocalDateTime.now())
                         .build());
+    }
+
+    public Reservation getReservationById(Long id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(RESERVATION_NOT_FOUND));
     }
 }

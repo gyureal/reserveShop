@@ -5,6 +5,7 @@ import com.example.reserveshop.member.domain.MemberRepository;
 import com.example.reserveshop.member.vo.*;
 import com.example.reserveshop.member.web.dto.CreateMemberRequest;
 import com.example.reserveshop.reservation.web.dto.CreateReservationRequest;
+import com.example.reserveshop.reservation.web.dto.ReservationInfo;
 import com.example.reserveshop.store.domain.entity.Store;
 import com.example.reserveshop.store.domain.repository.StoreRepository;
 import com.example.reserveshop.store.domain.vo.Image;
@@ -29,9 +30,10 @@ public class ReservationIntegrationTest extends IntegrationTest {
     private Member member1;
     private Store store1;
     private Store store2;
+    CreateReservationRequest request;
 
     @BeforeEach
-    void dataInit() {
+    void init() {
         // member
         member1 = memberRepository.save(Member.builder()
                 .id(1L)
@@ -61,6 +63,13 @@ public class ReservationIntegrationTest extends IntegrationTest {
                 .image(Image.of("/image2"))
                 .phoneNumber(PhoneNumber.of("010-2222-2222"))
                 .build());
+
+        // request
+        request = CreateReservationRequest.builder()
+                .storeId(2L)
+                .memberId(1L)
+                .phoneNumber("010-1111-1111")
+                .build();
     }
 
     @Test
@@ -84,5 +93,34 @@ public class ReservationIntegrationTest extends IntegrationTest {
 
         // then
         assertThat(response.statusCode()).isEqualTo(201);
+    }
+
+    @Test
+    @DisplayName("예약을 ID로 조회합니다.")
+    void searchReservationByIdSuccess() {
+        // given
+        ReservationInfo createdInfo = RestAssured
+                .given().log().all()
+                .body(request)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().post("/reservations")
+                .then().log().all()
+                .extract().as(ReservationInfo.class);
+
+        Long id = createdInfo.getId();
+
+        // when
+        ExtractableResponse<Response> response = RestAssured
+                .given().log().all()
+                .pathParam("id", id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().get("/reservations/{id}")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(200);
+        assertThat(response.body().as(ReservationInfo.class)).usingRecursiveComparison()
+                .isEqualTo(createdInfo);
     }
 }
