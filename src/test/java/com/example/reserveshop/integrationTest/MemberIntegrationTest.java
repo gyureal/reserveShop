@@ -6,6 +6,7 @@ import com.example.reserveshop.member.domain.MemberRepository;
 import com.example.reserveshop.member.domain.dto.MemberInfo;
 import com.example.reserveshop.member.vo.LoginId;
 import com.example.reserveshop.member.vo.Password;
+import com.example.reserveshop.member.vo.PhoneNumber;
 import com.example.reserveshop.member.web.dto.CreateMemberRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -60,7 +61,7 @@ public class MemberIntegrationTest extends IntegrationTest {
                 .loginId(LoginId.of("testInit001"))
                 .password(Password.of("pw001"))
                 .name("김장훈")
-                .phoneNumber("010-2333-3333")
+                .phoneNumber(PhoneNumber.of("010-2333-3333"))
                 .location("test")
                 .memberType(MemberType.GENERAL)
                 .build();

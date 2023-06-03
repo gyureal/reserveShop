@@ -3,6 +3,7 @@ package com.example.reserveshop.member.domain;
 import com.example.reserveshop.global.constant.MemberType;
 import com.example.reserveshop.member.vo.LoginId;
 import com.example.reserveshop.member.vo.Password;
+import com.example.reserveshop.member.vo.PhoneNumber;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -26,7 +27,9 @@ public class Member {
     @AttributeOverride(name = "value", column = @Column(name = "password"))
     private Password password;
     private String name;
-    private String phoneNumber;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "phone_number"))
+    private PhoneNumber phoneNumber;
     private String location;
     private MemberType memberType;
     @CreatedDate

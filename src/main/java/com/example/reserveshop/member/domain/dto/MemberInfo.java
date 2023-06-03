@@ -26,7 +26,7 @@ public class MemberInfo {
                 .id(member.getId())
                 .loginId(member.getLoginId().getValue())
                 .memberName(member.getName())
-                .phoneNumber(member.getPhoneNumber())
+                .phoneNumber(member.getPhoneNumber().getValue())
                 .location(member.getLocation())
                 .memberType(member.getMemberType().name())
                 .createdAt(member.getCreatedAt())
