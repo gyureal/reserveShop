@@ -1,12 +1,9 @@
 package com.example.reserveshop.store.domain.service;
 
 import com.example.reserveshop.member.domain.Member;
-import com.example.reserveshop.member.domain.MemberRepository;
 import com.example.reserveshop.member.domain.MemberService;
-import com.example.reserveshop.member.domain.dto.MemberInfo;
 import com.example.reserveshop.member.vo.Address;
 import com.example.reserveshop.member.vo.PhoneNumber;
-import com.example.reserveshop.store.domain.dto.StoreInfo;
 import com.example.reserveshop.store.domain.entity.Store;
 import com.example.reserveshop.store.domain.repository.StoreRepository;
 import com.example.reserveshop.store.domain.vo.Image;
@@ -14,6 +11,7 @@ import com.example.reserveshop.store.domain.vo.SortType;
 import com.example.reserveshop.store.web.dto.CreateStoreRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +31,7 @@ public class StoreService {
      * @param request
      * @return
      */
+    @Transactional
     public Store joinStore(CreateStoreRequest request) {
         Member member = memberService.getMember(request.getAdminMemberId());
         if (!member.isPartner()) {

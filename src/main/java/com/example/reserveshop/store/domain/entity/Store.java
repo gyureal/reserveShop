@@ -1,11 +1,9 @@
 package com.example.reserveshop.store.domain.entity;
 
 import com.example.reserveshop.member.domain.Member;
-import com.example.reserveshop.member.vo.MemberType;
 import com.example.reserveshop.member.vo.Address;
 import com.example.reserveshop.member.vo.PhoneNumber;
 import com.example.reserveshop.store.domain.vo.Image;
-import com.example.reserveshop.store.domain.vo.StoreType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +37,6 @@ public class Store {
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "phone_number"))
     private PhoneNumber phoneNumber;
-    @Enumerated(value = EnumType.STRING)
-    private StoreType storeType;
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate

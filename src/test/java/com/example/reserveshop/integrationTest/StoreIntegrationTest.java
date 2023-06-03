@@ -2,15 +2,11 @@ package com.example.reserveshop.integrationTest;
 
 import com.example.reserveshop.member.domain.Member;
 import com.example.reserveshop.member.domain.MemberRepository;
-import com.example.reserveshop.member.domain.dto.MemberInfo;
 import com.example.reserveshop.member.vo.*;
-import com.example.reserveshop.member.web.dto.CreateMemberRequest;
 import com.example.reserveshop.store.domain.dto.StoreInfo;
 import com.example.reserveshop.store.domain.entity.Store;
 import com.example.reserveshop.store.domain.repository.StoreRepository;
 import com.example.reserveshop.store.domain.vo.Image;
-import com.example.reserveshop.store.domain.vo.SortType;
-import com.example.reserveshop.store.domain.vo.StoreType;
 import com.example.reserveshop.store.web.dto.CreateStoreRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -56,7 +52,6 @@ public class StoreIntegrationTest extends IntegrationTest {
                         .description("desc1")
                         .image(Image.of("/image1"))
                         .phoneNumber(PhoneNumber.of("010-1111-1111"))
-                        .storeType(StoreType.GENERAL)
                         .build());
 
         store2 = storeRepository.save(Store.builder()
@@ -66,7 +61,6 @@ public class StoreIntegrationTest extends IntegrationTest {
                 .description("desc2")
                 .image(Image.of("/image2"))
                 .phoneNumber(PhoneNumber.of("010-2222-2222"))
-                .storeType(StoreType.PARTNER)
                 .build());
     }
 
