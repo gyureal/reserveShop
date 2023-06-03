@@ -17,14 +17,15 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity<?> createMember(
+    public ResponseEntity<MemberInfo> createMember(
             @RequestBody @Valid CreateMemberRequest createMemberRequest) {
-        return ResponseEntity.created(URI.create(""))
-                .body(memberService.joinMember(createMemberRequest));
+        MemberInfo memberInfo = MemberInfo.fromEntity(memberService.joinMember(createMemberRequest));
+        return ResponseEntity.created(URI.create("/members/" + memberInfo.getId()))
+                .body(memberInfo);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MemberInfo> readMembers(@PathVariable Long id) {
-        return ResponseEntity.ok(memberService.getMember(id));
+        return ResponseEntity.ok(MemberInfo.fromEntity(memberService.getMember(id)));
     }
 }

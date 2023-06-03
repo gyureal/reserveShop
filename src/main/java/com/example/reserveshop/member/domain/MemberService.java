@@ -21,15 +21,16 @@ public class MemberService {
      * @param request
      * @return
      */
-    public Long joinMember(CreateMemberRequest request) {
+    public Member joinMember(CreateMemberRequest request) {
         Member member = memberRepository.save(Member.builder()
                 .loginId(LoginId.of(request.getLoginId()))
                 .password(Password.of(request.getPassword()))
                 .name(request.getMemberName())
                 .phoneNumber(PhoneNumber.of(request.getPhoneNumber()))
                 .address(Address.of(request.getLocation()))
+                .memberType(request.getMemberType())
                 .build());
-        return member.getId();
+        return member;
     }
 
     /**
@@ -37,8 +38,8 @@ public class MemberService {
      * @param id
      * @return
      */
-    public MemberInfo getMember(Long id) {
-        return MemberInfo.fromEntity(memberRepository.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException(USER_NOT_FOUND)));
+    public Member getMember(Long id) {
+        return memberRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException(USER_NOT_FOUND));
     }
 }
