@@ -7,10 +7,12 @@ import com.example.reserveshop.member.vo.*;
 import com.example.reserveshop.member.web.dto.CreateMemberRequest;
 import com.example.reserveshop.store.domain.dto.StoreInfo;
 import com.example.reserveshop.store.domain.repository.StoreRepository;
+import com.example.reserveshop.store.domain.vo.StoreType;
 import com.example.reserveshop.store.web.dto.CreateStoreRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,30 @@ public class StoreIntegrationTest extends IntegrationTest {
     @Autowired
     MemberRepository memberRepository;
 
+    @BeforeEach
+    void dataInit() {
+        memberRepository.save(Member.builder()
+                        .id(1L)
+                        .loginId(LoginId.of("loge11"))
+                        .password(Password.of("00201"))
+                        .name("김진주")
+                        .phoneNumber(PhoneNumber.of("010-2233-2221"))
+                        .address(Address.of("2211fsd"))
+                        .memberType(MemberType.PARTNER)
+                        .build());
+    }
+
     @Test
     @DisplayName("관리자 회원이 매장등록에 성공합니다.")
     void storeJoin() {
         // given
         CreateStoreRequest request = CreateStoreRequest.builder()
+                .storeName("맥도날드")
+                .adminMemberId(1L)
+                .address("address")
+                .description("description")
+                .image("/image")
+                .phoneNumber("010-2022-2223")
                 .build();
 
         // when

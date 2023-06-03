@@ -6,12 +6,20 @@ import com.example.reserveshop.member.vo.Address;
 import com.example.reserveshop.member.vo.PhoneNumber;
 import com.example.reserveshop.store.domain.vo.Image;
 import com.example.reserveshop.store.domain.vo.StoreType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Store {
     @Id

@@ -39,4 +39,8 @@ public class Member {
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public boolean isPartner() {
+        return this.memberType.equals(MemberType.PARTNER);
+    }
 }
