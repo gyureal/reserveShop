@@ -2,6 +2,7 @@ package com.example.reserveshop.member.domain;
 
 import com.example.reserveshop.global.constant.MemberType;
 import com.example.reserveshop.member.vo.LoginId;
+import com.example.reserveshop.member.vo.Password;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,9 +20,11 @@ public class Member {
     @GeneratedValue
     private Long id;
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "loginId"))
+    @AttributeOverride(name = "value", column = @Column(name = "login_id"))
     private LoginId loginId;
-    private String password;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "password"))
+    private Password password;
     private String name;
     private String phoneNumber;
     private String location;

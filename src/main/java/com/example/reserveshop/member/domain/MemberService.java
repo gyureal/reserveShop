@@ -2,6 +2,7 @@ package com.example.reserveshop.member.domain;
 
 import com.example.reserveshop.member.domain.dto.MemberInfo;
 import com.example.reserveshop.member.vo.LoginId;
+import com.example.reserveshop.member.vo.Password;
 import com.example.reserveshop.member.web.dto.CreateMemberRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class MemberService {
     public Long joinMember(CreateMemberRequest request) {
         Member member = memberRepository.save(Member.builder()
                 .loginId(LoginId.of(request.getLoginId()))
-                .password(request.getPassword())
+                .password(Password.of(request.getPassword()))
                 .name(request.getMemberName())
                 .phoneNumber(request.getPhoneNumber())
                 .location(request.getLocation())
