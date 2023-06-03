@@ -23,6 +23,7 @@ import java.util.Optional;
 public class StoreService {
 
     private static final String JOIN_ONLY_CAN_PARTNER_MEMBER = "매장 등록은 파트너 회원만 가능합니다.";
+    private static final String STORE_NOT_FOUND = "매장 정보를 찾을 수 없습니다.";
     private final StoreRepository storeRepository;
     private final MemberService memberService;
 
@@ -51,5 +52,10 @@ public class StoreService {
         List<Store> stores = storeRepository.findByNameStartsWithOrderByName(storeName);
 
         return stores;
+    }
+
+    public Store getStoreById(Long id) {
+        return storeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(STORE_NOT_FOUND));
     }
 }

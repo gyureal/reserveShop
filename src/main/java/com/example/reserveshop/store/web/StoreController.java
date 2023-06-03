@@ -35,4 +35,9 @@ public class StoreController {
                 .collect(Collectors.toList()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<StoreInfo> searchStoreById(@PathVariable Long id) {
+        return ResponseEntity.ok(StoreInfo.fromEntity(storeService.getStoreById(id)));
+    }
+
 }

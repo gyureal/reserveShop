@@ -121,7 +121,7 @@ public class StoreIntegrationTest extends IntegrationTest {
     @DisplayName("id 값으로 매장을 검색합니다.")
     void searchStoreById() {
         // given
-        Long id = 1L;
+        Long id = 2L;
 
         // when
         ExtractableResponse<Response> response = RestAssured
@@ -133,9 +133,7 @@ public class StoreIntegrationTest extends IntegrationTest {
                 .extract();
 
         // then
-        StoreInfo answer = StoreInfo
-                .builder()
-                .build();
+        StoreInfo answer = StoreInfo.fromEntity(store1);
 
         assertThat(response.statusCode()).isEqualTo(200);
         assertThat(response.body().as(StoreInfo.class)).usingRecursiveComparison().isEqualTo(answer);
