@@ -24,7 +24,7 @@ public class MemberInfo {
     public static MemberInfo fromEntity(Member member) {
         return MemberInfo.builder()
                 .id(member.getId())
-                .loginId(member.getLoginId())
+                .loginId(member.getLoginId().getValue())
                 .memberName(member.getName())
                 .phoneNumber(member.getPhoneNumber())
                 .location(member.getLocation())

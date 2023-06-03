@@ -1,13 +1,12 @@
 package com.example.reserveshop.member.domain;
 
 import com.example.reserveshop.global.constant.MemberType;
+import com.example.reserveshop.member.vo.LoginId;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -19,7 +18,9 @@ public class Member {
     @Id
     @GeneratedValue
     private Long id;
-    private String loginId;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "loginId"))
+    private LoginId loginId;
     private String password;
     private String name;
     private String phoneNumber;
