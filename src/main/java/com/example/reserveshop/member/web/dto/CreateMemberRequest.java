@@ -1,6 +1,6 @@
 package com.example.reserveshop.member.web.dto;
 
-import com.example.reserveshop.global.constant.MemberType;
+import com.example.reserveshop.member.vo.MemberType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

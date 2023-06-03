@@ -1,6 +1,6 @@
 package com.example.reserveshop.member.domain;
 
-import com.example.reserveshop.global.constant.MemberType;
+import com.example.reserveshop.member.vo.MemberType;
 import com.example.reserveshop.member.vo.Address;
 import com.example.reserveshop.member.vo.LoginId;
 import com.example.reserveshop.member.vo.Password;

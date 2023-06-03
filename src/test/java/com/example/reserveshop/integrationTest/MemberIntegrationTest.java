@@ -1,6 +1,6 @@
 package com.example.reserveshop.integrationTest;
 
-import com.example.reserveshop.global.constant.MemberType;
+import com.example.reserveshop.member.vo.MemberType;
 import com.example.reserveshop.member.domain.Member;
 import com.example.reserveshop.member.domain.MemberRepository;
 import com.example.reserveshop.member.domain.dto.MemberInfo;
@@ -12,12 +12,10 @@ import com.example.reserveshop.member.web.dto.CreateMemberRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.assertj.core.api.Assertions.*;
 

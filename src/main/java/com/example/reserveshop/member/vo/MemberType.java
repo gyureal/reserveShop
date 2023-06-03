@@ -1,4 +1,4 @@
-package com.example.reserveshop.global.constant;
+package com.example.reserveshop.member.vo;
 
 
 public enum MemberType {
