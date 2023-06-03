@@ -10,9 +10,13 @@ import com.example.reserveshop.store.domain.dto.StoreInfo;
 import com.example.reserveshop.store.domain.entity.Store;
 import com.example.reserveshop.store.domain.repository.StoreRepository;
 import com.example.reserveshop.store.domain.vo.Image;
+import com.example.reserveshop.store.domain.vo.SortType;
 import com.example.reserveshop.store.web.dto.CreateStoreRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,4 +47,9 @@ public class StoreService {
                 .build());
     }
 
+    public List<Store> getStore(String storeName, Optional<SortType> sortType) {
+        List<Store> stores = storeRepository.findByNameStartsWithOrderByName(storeName);
+
+        return stores;
+    }
 }

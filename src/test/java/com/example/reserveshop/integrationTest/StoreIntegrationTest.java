@@ -6,7 +6,10 @@ import com.example.reserveshop.member.domain.dto.MemberInfo;
 import com.example.reserveshop.member.vo.*;
 import com.example.reserveshop.member.web.dto.CreateMemberRequest;
 import com.example.reserveshop.store.domain.dto.StoreInfo;
+import com.example.reserveshop.store.domain.entity.Store;
 import com.example.reserveshop.store.domain.repository.StoreRepository;
+import com.example.reserveshop.store.domain.vo.Image;
+import com.example.reserveshop.store.domain.vo.SortType;
 import com.example.reserveshop.store.domain.vo.StoreType;
 import com.example.reserveshop.store.web.dto.CreateStoreRequest;
 import io.restassured.RestAssured;
@@ -28,9 +31,14 @@ public class StoreIntegrationTest extends IntegrationTest {
     @Autowired
     MemberRepository memberRepository;
 
+    private Member member1;
+    private Store store1;
+    private Store store2;
+
     @BeforeEach
     void dataInit() {
-        memberRepository.save(Member.builder()
+        // member
+        member1 = memberRepository.save(Member.builder()
                         .id(1L)
                         .loginId(LoginId.of("loge11"))
                         .password(Password.of("00201"))
@@ -39,6 +47,27 @@ public class StoreIntegrationTest extends IntegrationTest {
                         .address(Address.of("2211fsd"))
                         .memberType(MemberType.PARTNER)
                         .build());
+
+        // store
+        store1 = storeRepository.save(Store.builder()
+                        .name("맥도날드 삼산점")
+                        .admin(member1)
+                        .address(Address.of("address1"))
+                        .description("desc1")
+                        .image(Image.of("/image1"))
+                        .phoneNumber(PhoneNumber.of("010-1111-1111"))
+                        .storeType(StoreType.GENERAL)
+                        .build());
+
+        store2 = storeRepository.save(Store.builder()
+                .name("맥도날드 강남점")
+                .admin(member1)
+                .address(Address.of("address2"))
+                .description("desc2")
+                .image(Image.of("/image2"))
+                .phoneNumber(PhoneNumber.of("010-2222-2222"))
+                .storeType(StoreType.PARTNER)
+                .build());
     }
 
     @Test
@@ -46,7 +75,7 @@ public class StoreIntegrationTest extends IntegrationTest {
     void storeJoin() {
         // given
         CreateStoreRequest request = CreateStoreRequest.builder()
-                .storeName("맥도날드")
+                .storeName("버거킹")
                 .adminMemberId(1L)
                 .address("address")
                 .description("description")
@@ -71,28 +100,25 @@ public class StoreIntegrationTest extends IntegrationTest {
     @DisplayName("매장명으로 매장을 검색합니다.")
     void searchStoreByName() {
         // given
-        String storeName = "";
-        String sortType = "";
+        String storeName = "맥도날드";
 
         // when
         ExtractableResponse<Response> response = RestAssured
                 .given().log().all()
                 .queryParam("storeName", storeName)
-                .queryParam("sort", sortType)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when().get("/stores")
                 .then().log().all()
                 .extract();
 
-
         // then
         StoreInfo[] storeInfos = response.body().as(StoreInfo[].class);
         assertThat(response.statusCode()).isEqualTo(200);
-        assertThat(storeInfos).hasSize(3);
+        assertThat(storeInfos).hasSize(2);
     }
 
     @Test
-    @DisplayName("id값으로 매장을 검색합니다.")
+    @DisplayName("id 값으로 매장을 검색합니다.")
     void searchStoreById() {
         // given
         Long id = 1L;
