@@ -22,7 +22,7 @@ public class MemberService {
      * @return
      */
     public Member joinMember(CreateMemberRequest request) {
-        Member member = memberRepository.save(Member.builder()
+        return memberRepository.save(Member.builder()
                 .loginId(LoginId.of(request.getLoginId()))
                 .password(Password.of(request.getPassword()))
                 .name(request.getMemberName())
@@ -30,7 +30,6 @@ public class MemberService {
                 .address(Address.of(request.getLocation()))
                 .memberType(request.getMemberType())
                 .build());
-        return member;
     }
 
     /**
