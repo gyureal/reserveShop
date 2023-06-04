@@ -21,6 +21,11 @@ import java.util.stream.Collectors;
 public class ReservationController {
     private final ReservationService reservationService;
 
+    /**
+     * 예약을 생성합니다.
+     * @param request
+     * @return
+     */
     @PostMapping
     public ResponseEntity<ReservationInfo> createReservation(@RequestBody CreateReservationRequest request) {
         ReservationInfo reservationInfo = ReservationInfo.fromEntity(reservationService.createReservation(request));
@@ -28,11 +33,25 @@ public class ReservationController {
                 .body(reservationInfo);
     }
 
+    /**
+     * id 값으로 예약 정보를 조회합니다.
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ReservationInfo> searchReservationById(@PathVariable Long id) {
         return ResponseEntity.ok(ReservationInfo.fromEntity(reservationService.getReservationById(id)));
     }
 
+    /**
+     * 예약 정보를 조회합니다.
+     * 상점 id, 예약상태, 날짜범위 에 해당하는 예약을 조회합니다.
+     * @param storeId
+     * @param status
+     * @param from
+     * @param to
+     * @return
+     */
     @GetMapping
     public ResponseEntity<List<ReservationInfo>> searchReservations(@RequestParam Long storeId,
                                                                     @RequestParam ReserveStatus status,

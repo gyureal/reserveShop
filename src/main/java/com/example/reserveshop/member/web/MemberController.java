@@ -16,6 +16,11 @@ import java.net.URI;
 public class MemberController {
     private final MemberService memberService;
 
+    /**
+     * 회원을 생성합니다.
+     * @param createMemberRequest
+     * @return
+     */
     @PostMapping
     public ResponseEntity<MemberInfo> createMember(
             @RequestBody @Valid CreateMemberRequest createMemberRequest) {
@@ -24,6 +29,11 @@ public class MemberController {
                 .body(memberInfo);
     }
 
+    /**
+     * id로 회원을 조회합니다.
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<MemberInfo> readMembers(@PathVariable Long id) {
         return ResponseEntity.ok(MemberInfo.fromEntity(memberService.getMember(id)));
