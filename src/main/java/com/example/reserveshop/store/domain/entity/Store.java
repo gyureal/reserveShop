@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Store {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     @ManyToOne

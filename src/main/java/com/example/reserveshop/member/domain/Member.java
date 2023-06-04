@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Member {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "login_id"))
