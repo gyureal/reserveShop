@@ -47,12 +47,23 @@ public class StoreService {
                 .build());
     }
 
+    /**
+     * 상점 목록을 조회합니다.
+     * @param storeName
+     * @param sortType
+     * @return
+     */
     public List<Store> getStore(String storeName, Optional<SortType> sortType) {
         List<Store> stores = storeRepository.findByNameStartsWithOrderByName(storeName);
-
+        //TODO: 별점 순, 거리 순 정렬 구현
         return stores;
     }
 
+    /**
+     * id 값으로 상점 조회
+     * @param id
+     * @return
+     */
     public Store getStoreById(Long id) {
         return storeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(STORE_NOT_FOUND));
