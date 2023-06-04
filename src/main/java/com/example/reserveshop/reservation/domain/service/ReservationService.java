@@ -34,6 +34,11 @@ public class ReservationService {
     private final StoreService storeService;
     private final Clock clock;
 
+    /**
+     * 예약을 생성합니다.
+     * @param request
+     * @return
+     */
     @Transactional
     public Reservation createReservation(CreateReservationRequest request) {
 
@@ -46,25 +51,35 @@ public class ReservationService {
                         .build());
     }
 
+    /**
+     * id 값으로 예약을 조회합니다.
+     * @param id
+     * @return
+     */
     public Reservation getReservationById(Long id) {
         return reservationRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(RESERVATION_NOT_FOUND));
     }
 
+    /**
+     * 예약 목록을 조회합니다.
+     * @param storeId 상점 id
+     * @param status 예약 상태
+     * @param from 예약 일자, 조회 시작일
+     * @param to 예약 일자, 조회 종료일
+     * @return
+     */
     public List<Reservation> getReservations(Long storeId, ReserveStatus status, Optional<LocalDate> from, Optional<LocalDate> to) {
-        Store store = storeService.getStoreById(storeId);
+        storeService.getStoreById(storeId);
 
         SearchDateRange dateRange = SearchDateRange.of(from, to);
-
-        LocalDateTime fromDateTime = dateRange.getFromDateTime();
-        LocalDateTime toDateTime = dateRange.getToDateTime();
 
         return reservationRepository.findByStoreIdAndStatusLikeAndReserveDateTimeBetween(
                 storeId, status, dateRange.getFromDateTime(), dateRange.getToDateTime());
     }
 
     /**
-     * 예약 승인/거절 처리를 합니다.
+     * 예약을 승인/거절 처리를 합니다.
      * @throws IllegalArgumentException 예약 상태가 요청(APPROVE)이 아닌 경우
      * @param id
      */
