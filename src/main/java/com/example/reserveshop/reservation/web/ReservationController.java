@@ -87,4 +87,15 @@ public class ReservationController {
         reservationService.approveOrRejectReservation(id, REJECT);
         return ResponseEntity.ok().build();
     }
+
+    /**
+     * 예약을 방문처리 합니다.
+     * @param id
+     * @return
+     */
+    @PostMapping("/{id}/visit")
+    public ResponseEntity<Void> visitReservation(@PathVariable Long id) {
+        reservationService.visitReservation(id);
+        return ResponseEntity.ok().build();
+    }
 }

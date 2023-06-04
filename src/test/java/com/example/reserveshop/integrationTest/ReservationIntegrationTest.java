@@ -232,6 +232,31 @@ public class ReservationIntegrationTest extends IntegrationTest {
         assertThat(reservation.getStatus()).isEqualTo(REJECTED);
     }
 
+    @Test
+    @DisplayName("예약을 방문 처리합니다.")
+    void visitReservationSuccess() {
+        // given
+        ReservationInfo reservationInfo = insertReservation(member1, store1, APPROVED, LocalDateTime.now(FIXED_CLOCK));
+
+        Long id = reservationInfo.getId();
+
+        // when
+        ExtractableResponse<Response> response = RestAssured
+                .given().log().all()
+                .pathParam("id", id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().post("/reservations/{id}/visit")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(200);
+
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("id를 찾을 수 없습니다."));
+        assertThat(reservation.getStatus()).isEqualTo(VISIT);
+    }
+
     private ReservationInfo insertReservation(Member member, Store store, ReserveStatus status, LocalDateTime dateTime) {
         return ReservationInfo.fromEntity(reservationRepository.save(makeReservation(member, store, status, dateTime)));
     }

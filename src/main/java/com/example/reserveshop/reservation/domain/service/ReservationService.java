@@ -80,7 +80,8 @@ public class ReservationService {
 
     /**
      * 예약을 승인/거절 처리를 합니다.
-     * @throws IllegalArgumentException 예약 상태가 요청(APPROVE)이 아닌 경우
+     * @throws IllegalStateException 예약 상태가 요청(APPROVE)이 아닌 경우
+     * @throws IllegalArgumentException 예약 id가 유효하지 않은 경우
      * @param id
      */
     @Transactional
@@ -94,5 +95,17 @@ public class ReservationService {
             reservation.reject();
             return;
         }
+    }
+
+    /**
+     * 예약을 방문처리 합니다.
+     * @throws IllegalStateException 예약 상태가 방문(VISIT)이 아닌 경우
+     * @throws IllegalArgumentException 예약 id가 유효하지 않은 경우
+     * @param id
+     */
+    @Transactional
+    public void visitReservation(Long id) {
+        Reservation reservation = getReservationById(id);
+        reservation.visit();
     }
 }
