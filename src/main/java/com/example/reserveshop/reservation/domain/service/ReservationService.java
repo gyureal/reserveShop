@@ -10,6 +10,7 @@ import com.example.reserveshop.store.domain.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 @Service
@@ -19,6 +20,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final MemberService memberService;
     private final StoreService storeService;
+    private final Clock clock;
     public Reservation createReservation(CreateReservationRequest request) {
 
         return reservationRepository.save(Reservation.builder()
@@ -26,7 +28,7 @@ public class ReservationService {
                         .store(storeService.getStoreById(request.getStoreId()))
                         .phoneNumber(PhoneNumber.of(request.getPhoneNumber()))
                         .status(ReserveStatus.REQUEST)
-                        .reserveDateTime(LocalDateTime.now())
+                        .reserveDateTime(LocalDateTime.now(clock))
                         .build());
     }
 
