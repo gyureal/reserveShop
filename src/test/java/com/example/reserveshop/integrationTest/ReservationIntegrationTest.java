@@ -24,6 +24,7 @@ import org.springframework.http.MediaType;
 
 import java.time.*;
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.reserveshop.reservation.domain.vo.ReserveStatus.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -179,6 +180,56 @@ public class ReservationIntegrationTest extends IntegrationTest {
         List<ReservationInfo> result = response.body().jsonPath().getList(".", ReservationInfo.class);
         List<ReservationInfo> answer = List.of(reservation1, reservation2);
         assertThat(result).usingRecursiveComparison().isEqualTo(answer);
+    }
+
+    @Test
+    @DisplayName("예약을 승인 처리합니다.")
+    void approveReservationSuccess() {
+        // given
+        ReservationInfo reservationInfo = insertReservation(member1, store1, REQUEST, LocalDateTime.now(FIXED_CLOCK));
+
+        Long id = reservationInfo.getId();
+
+        // when
+        ExtractableResponse<Response> response = RestAssured
+                .given().log().all()
+                .pathParam("id", id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().post("/reservations/{id}/approve")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(200);
+
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("id를 찾을 수 없습니다."));
+        assertThat(reservation.getStatus()).isEqualTo(APPROVED);
+    }
+
+    @Test
+    @DisplayName("예약을 거절 처리합니다.")
+    void rejectReservationSuccess() {
+        // given
+        ReservationInfo reservationInfo = insertReservation(member1, store1, REQUEST, LocalDateTime.now(FIXED_CLOCK));
+
+        Long id = reservationInfo.getId();
+
+        // when
+        ExtractableResponse<Response> response = RestAssured
+                .given().log().all()
+                .pathParam("id", id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().post("/reservations/{id}/reject")
+                .then().log().all()
+                .extract();
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(200);
+
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("id를 찾을 수 없습니다."));
+        assertThat(reservation.getStatus()).isEqualTo(REJECTED);
     }
 
     private ReservationInfo insertReservation(Member member, Store store, ReserveStatus status, LocalDateTime dateTime) {

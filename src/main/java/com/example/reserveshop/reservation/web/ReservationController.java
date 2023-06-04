@@ -1,6 +1,7 @@
 package com.example.reserveshop.reservation.web;
 
 import com.example.reserveshop.reservation.domain.service.ReservationService;
+import com.example.reserveshop.reservation.domain.vo.AcceptType;
 import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
 import com.example.reserveshop.reservation.web.dto.CreateReservationRequest;
 import com.example.reserveshop.reservation.web.dto.ReservationInfo;
@@ -14,6 +15,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.example.reserveshop.reservation.domain.vo.AcceptType.*;
 
 @RestController
 @RequestMapping("/reservations")
@@ -61,5 +64,27 @@ public class ReservationController {
                 reservationService.getReservations(storeId, status, from, to)
                         .stream().map(ReservationInfo::fromEntity)
                         .collect(Collectors.toList()));
+    }
+
+    /**
+     * 예약 승인 처리합니다.
+     * @param id
+     * @return
+     */
+    @PostMapping("/{id}/approve")
+    public ResponseEntity<Void> approveReservation(@PathVariable Long id) {
+        reservationService.approveOrRejectReservation(id, APPROVE);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * 예약 거절 처리합니다.
+     * @param id
+     * @return
+     */
+    @PostMapping("/{id}/reject")
+    public ResponseEntity<Void> rejectReservation(@PathVariable Long id) {
+        reservationService.approveOrRejectReservation(id, REJECT);
+        return ResponseEntity.ok().build();
     }
 }
