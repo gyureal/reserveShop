@@ -13,7 +13,7 @@ public class StoreInfo {
 
     private Long id;
     private String name;
-    private MemberInfo admin;
+    private Long adminId;
     private String description;
     private String image;
     private String phoneNumber;
@@ -22,7 +22,7 @@ public class StoreInfo {
         return StoreInfo.builder()
                 .id(store.getId())
                 .name(store.getName())
-                .admin(MemberInfo.fromEntity(store.getAdmin()))
+                .adminId(store.getAdmin().getId())
                 .description(store.getDescription())
                 .image(store.getDescription())
                 .phoneNumber(store.getPhoneNumber().getValue())
