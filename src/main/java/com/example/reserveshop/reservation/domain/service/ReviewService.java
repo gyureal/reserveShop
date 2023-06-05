@@ -5,16 +5,21 @@ import com.example.reserveshop.reservation.domain.entity.Review;
 import com.example.reserveshop.reservation.domain.repository.ReviewRepository;
 import com.example.reserveshop.reservation.domain.vo.StarRate;
 import com.example.reserveshop.reservation.web.dto.CreateReviewRequest;
+import com.example.reserveshop.reservation.web.dto.ReviewInfo;
+import com.example.reserveshop.store.domain.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
     private static final String ALREADY_REVIEW_EXISTS = "이미 해당 예약건에 대한 리뷰가 존재합니다.";
+    private final StoreService storeService;
     private final ReviewRepository reviewRepository;
     private final ReservationService reservationService;
     private final Clock clock;
@@ -45,5 +50,17 @@ public class ReviewService {
                         .comment(request.getComment())
                         .reviewDateTime(LocalDateTime.now(clock))
                         .build());
+    }
+
+    /**
+     * 상점 id에 해당하는 상점 정보를 조회합니다.
+     * @param storeId
+     * @return
+     */
+    public List<ReviewInfo> getReviewsByStoreId(Long storeId) {
+        storeService.getStoreById(storeId);
+        return reviewRepository.findByReservation_Store_Id(storeId).stream()
+                .map(ReviewInfo::fromEntity)
+                .collect(Collectors.toList());
     }
 }
