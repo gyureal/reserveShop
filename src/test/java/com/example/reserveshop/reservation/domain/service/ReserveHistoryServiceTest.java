@@ -7,6 +7,7 @@ import com.example.reserveshop.reservation.domain.entity.Reservation;
 import com.example.reserveshop.reservation.domain.entity.ReserveHistory;
 import com.example.reserveshop.reservation.domain.repository.ReservationRepository;
 import com.example.reserveshop.reservation.domain.repository.ReserveHistoryRepository;
+import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
 import com.example.reserveshop.store.domain.entity.Store;
 import com.example.reserveshop.store.domain.repository.StoreRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -78,6 +79,10 @@ class ReserveHistoryServiceTest {
         // when
         List<ReserveHistory> result = reserveHistoryService.getHistoryByReservation(reservation1);
 
+        List<ReserveStatus> statuses = List.of(REQUEST, APPROVED, VISIT);
+        assertThat(result).hasSize(3);
+        assertThat(result).extracting(ReserveHistory::getStatusHistory)
+                .isEqualTo(statuses);
     }
 
     private Reservation insertReservation() {
