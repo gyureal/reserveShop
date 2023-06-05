@@ -103,6 +103,17 @@ public class Reservation {
         }
     }
 
+    /**
+     * 리뷰를 남길 수 있는 상황인지 판별합니다.
+     * @return
+     */
+    public boolean idReviewable() {
+        if (isStatus(VISIT) || isStatus(PAID)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

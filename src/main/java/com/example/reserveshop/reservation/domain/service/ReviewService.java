@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReviewService {
     private static final String ALREADY_REVIEW_EXISTS = "이미 해당 예약건에 대한 리뷰가 존재합니다.";
+    private static final String IS_NOT_REVIEWABLE_STATUS = "예약이 리뷰를 남길 수 있는 상태가 아닙니다.";
     private final StoreService storeService;
     private final ReviewRepository reviewRepository;
     private final ReservationService reservationService;
@@ -30,12 +31,18 @@ public class ReviewService {
      *         예약 Id 에 해당하는 예약이 존재하지 않을 때,
      *         별점이 범위를 벗어날 때,
      *         즉,{@code starRate < 0 || starRate > 5}인 경우
-     * @throws IllegalStateException 이미 해당 예약에 대한 리뷰가 존재하는 경우
+     * @throws IllegalStateException
+     *         이미 해당 예약에 대한 리뷰가 존재하는 경우,
+     *         예약이 리뷰를 남길 수 없는 상태인 경우 (VISIT, PAID 이외 상태)
      * @param request
      * @return
      */
     public Review createReview(CreateReviewRequest request) {
         Reservation reservation = reservationService.getReservationById(request.getReservationId());
+
+        if (!reservation.idReviewable()) {
+            throw new IllegalStateException(IS_NOT_REVIEWABLE_STATUS);
+        }
 
         int reviewCount = reviewRepository.countByReservationId(request.getReservationId());
         if (reviewCount > 0) {
