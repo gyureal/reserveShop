@@ -21,6 +21,11 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
+    /**
+     * 리뷰를 생성합니다.
+     * @param request
+     * @return
+     */
     @PostMapping
     public ResponseEntity<ReviewInfo> createReview(@Valid @RequestBody CreateReviewRequest request) {
         Review review = reviewService.createReview(request);
