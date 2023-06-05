@@ -7,6 +7,7 @@ import com.example.reserveshop.store.domain.entity.Store;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import static com.example.reserveshop.reservation.domain.vo.ReserveStatus.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Reservation {
     private static final String ALREADY_APPROVED = "이미 예약 승인 된 예약입니다.";
