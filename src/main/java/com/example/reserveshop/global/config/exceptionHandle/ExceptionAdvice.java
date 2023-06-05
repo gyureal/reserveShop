@@ -40,6 +40,12 @@ public class ExceptionAdvice {
         return ErrorResponse.of(generateLogId(ex), ex);
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleIllegalStateException(IllegalStateException ex) {
+        return ErrorResponse.of(generateLogId(ex), ex);
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleException(Exception ex) {
