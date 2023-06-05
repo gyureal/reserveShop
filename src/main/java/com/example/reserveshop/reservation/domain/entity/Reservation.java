@@ -4,18 +4,17 @@ import com.example.reserveshop.member.domain.Member;
 import com.example.reserveshop.member.vo.PhoneNumber;
 import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
 import com.example.reserveshop.store.domain.entity.Store;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static com.example.reserveshop.reservation.domain.vo.ReserveStatus.*;
 
+@ToString
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,10 +28,11 @@ public class Reservation {
     private static final String STATUS_MUST_APPROVED = "승인 상태의 예약만 방문 처리 가능합니다.";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "reservation_id")
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Store store;
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "phone_number"))
@@ -97,4 +97,20 @@ public class Reservation {
         }
     }
 
+    public void changeStatus(ReserveStatus status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
