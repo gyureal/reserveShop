@@ -26,6 +26,7 @@ import static com.example.reserveshop.reservation.domain.vo.ReserveStatus.*;
 @RequiredArgsConstructor
 public class ReservationService {
     private static final String RESERVATION_NOT_FOUND = "예약정보를 찾을 수 없습니다.";
+    private static final String ILLEGAL_ACCETP_TYPE = "acceptType 이 올바르지 않습니다.";
 
     private final ReservationRepository reservationRepository;
     private final MemberService memberService;
@@ -90,11 +91,10 @@ public class ReservationService {
         Reservation reservation = getReservationById(id);
         if (acceptType.equals(APPROVE)) {
             reservation.approve();
-            return;
-        }
-        if (acceptType.equals(REJECT)) {
+        } else if (acceptType.equals(REJECT)) {
             reservation.reject();
-            return;
+        } else {
+            throw new IllegalArgumentException(ILLEGAL_ACCETP_TYPE);
         }
         reserveHistoryService.createBy(reservation);
     }
@@ -109,5 +109,7 @@ public class ReservationService {
     public void visitReservation(Long id) {
         Reservation reservation = getReservationById(id);
         reservation.visit();
+
+        reserveHistoryService.createBy(reservation);
     }
 }
