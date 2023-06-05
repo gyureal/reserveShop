@@ -17,7 +17,6 @@ public class MemberInfo {
     private String phoneNumber;
     private String location;
     private String memberType;
-    private LocalDateTime createdAt;
 
     public static MemberInfo fromEntity(Member member) {
         return MemberInfo.builder()
@@ -27,7 +26,6 @@ public class MemberInfo {
                 .phoneNumber(member.getPhoneNumber().getValue())
                 .location(member.getAddress().getValue())
                 .memberType(member.getMemberType().name())
-                .createdAt(member.getCreatedAt())
                 .build();
     }
 }

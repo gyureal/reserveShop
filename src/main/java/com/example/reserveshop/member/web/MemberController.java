@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/members")
@@ -30,12 +32,23 @@ public class MemberController {
     }
 
     /**
+     * 전체 회원 목록을 조회합니다.
+     * @return
+     */
+    @GetMapping
+    public ResponseEntity<List<MemberInfo>> searchMembers() {
+        return ResponseEntity.ok(memberService.getMembers()
+                .stream().map(MemberInfo::fromEntity)
+                .collect(Collectors.toList()));
+    }
+
+    /**
      * id로 회원을 조회합니다.
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    public ResponseEntity<MemberInfo> readMembers(@PathVariable Long id) {
+    public ResponseEntity<MemberInfo> searchMembersById(@PathVariable Long id) {
         return ResponseEntity.ok(MemberInfo.fromEntity(memberService.getMember(id)));
     }
 }
