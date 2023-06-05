@@ -1,7 +1,6 @@
 package com.example.reserveshop.store.domain.dto;
 
-import com.example.reserveshop.member.domain.dto.MemberInfo;
-import com.example.reserveshop.store.domain.entity.Store;
+import com.example.reserveshop.store.domain.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

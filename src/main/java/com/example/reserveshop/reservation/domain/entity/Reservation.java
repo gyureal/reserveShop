@@ -3,7 +3,7 @@ package com.example.reserveshop.reservation.domain.entity;
 import com.example.reserveshop.member.domain.Member;
 import com.example.reserveshop.member.vo.PhoneNumber;
 import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
-import com.example.reserveshop.store.domain.entity.Store;
+import com.example.reserveshop.store.domain.Store;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

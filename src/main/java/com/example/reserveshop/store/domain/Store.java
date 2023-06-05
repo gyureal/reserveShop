@@ -1,4 +1,4 @@
-package com.example.reserveshop.store.domain.entity;
+package com.example.reserveshop.store.domain;
 
 import com.example.reserveshop.member.domain.Member;
 import com.example.reserveshop.member.vo.Address;

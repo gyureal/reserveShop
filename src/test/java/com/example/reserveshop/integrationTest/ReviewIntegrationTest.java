@@ -7,8 +7,8 @@ import com.example.reserveshop.reservation.domain.entity.Reservation;
 import com.example.reserveshop.reservation.domain.repository.ReservationRepository;
 import com.example.reserveshop.reservation.web.dto.CreateReviewRequest;
 import com.example.reserveshop.reservation.web.dto.ReviewInfo;
-import com.example.reserveshop.store.domain.entity.Store;
-import com.example.reserveshop.store.domain.repository.StoreRepository;
+import com.example.reserveshop.store.domain.Store;
+import com.example.reserveshop.store.domain.StoreRepository;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -24,7 +24,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

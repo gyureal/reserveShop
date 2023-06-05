@@ -1,6 +1,6 @@
-package com.example.reserveshop.store.domain.repository;
+package com.example.reserveshop.store.domain;
 
-import com.example.reserveshop.store.domain.entity.Store;
+import com.example.reserveshop.store.domain.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

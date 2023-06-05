@@ -1,11 +1,11 @@
-package com.example.reserveshop.store.domain.service;
+package com.example.reserveshop.store.domain;
 
 import com.example.reserveshop.member.domain.Member;
 import com.example.reserveshop.member.domain.MemberService;
 import com.example.reserveshop.member.vo.Address;
 import com.example.reserveshop.member.vo.PhoneNumber;
-import com.example.reserveshop.store.domain.entity.Store;
-import com.example.reserveshop.store.domain.repository.StoreRepository;
+import com.example.reserveshop.store.domain.Store;
+import com.example.reserveshop.store.domain.StoreRepository;
 import com.example.reserveshop.store.domain.vo.Image;
 import com.example.reserveshop.store.domain.vo.SortType;
 import com.example.reserveshop.store.web.dto.CreateStoreRequest;

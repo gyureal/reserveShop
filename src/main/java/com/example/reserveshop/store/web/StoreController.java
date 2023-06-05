@@ -1,8 +1,7 @@
 package com.example.reserveshop.store.web;
 
 import com.example.reserveshop.store.domain.dto.StoreInfo;
-import com.example.reserveshop.store.domain.entity.Store;
-import com.example.reserveshop.store.domain.service.StoreService;
+import com.example.reserveshop.store.domain.StoreService;
 import com.example.reserveshop.store.domain.vo.SortType;
 import com.example.reserveshop.store.web.dto.CreateStoreRequest;
 import lombok.RequiredArgsConstructor;

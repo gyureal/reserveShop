@@ -8,14 +8,12 @@ import com.example.reserveshop.reservation.domain.vo.AcceptType;
 import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
 import com.example.reserveshop.reservation.domain.vo.SearchDateRange;
 import com.example.reserveshop.reservation.web.dto.CreateReservationRequest;
-import com.example.reserveshop.store.domain.service.StoreService;
+import com.example.reserveshop.store.domain.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

@@ -6,7 +6,7 @@ import com.example.reserveshop.reservation.domain.repository.ReviewRepository;
 import com.example.reserveshop.reservation.domain.vo.StarRate;
 import com.example.reserveshop.reservation.web.dto.CreateReviewRequest;
 import com.example.reserveshop.reservation.web.dto.ReviewInfo;
-import com.example.reserveshop.store.domain.service.StoreService;
+import com.example.reserveshop.store.domain.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

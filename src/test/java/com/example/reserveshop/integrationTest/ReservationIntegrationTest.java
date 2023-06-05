@@ -8,8 +8,8 @@ import com.example.reserveshop.reservation.domain.repository.ReservationReposito
 import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
 import com.example.reserveshop.reservation.web.dto.CreateReservationRequest;
 import com.example.reserveshop.reservation.web.dto.ReservationInfo;
-import com.example.reserveshop.store.domain.entity.Store;
-import com.example.reserveshop.store.domain.repository.StoreRepository;
+import com.example.reserveshop.store.domain.Store;
+import com.example.reserveshop.store.domain.StoreRepository;
 import com.example.reserveshop.store.domain.vo.Image;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
