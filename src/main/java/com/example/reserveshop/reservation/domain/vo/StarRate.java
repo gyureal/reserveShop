@@ -14,9 +14,13 @@ public class StarRate {
     private static final String MUST_ZERO_TO_FIVE = "별점은 0이상 5이하여야합니다.";
     private Double value;
 
-    public StarRate(Double value) {
+    private StarRate(Double value) {
         validateRate(value);
         this.value = scale(value);
+    }
+
+    public static StarRate of(Double value) {
+        return new StarRate(value);
     }
 
     /**

@@ -14,7 +14,7 @@ class StarRateTest {
         Double rate = 5.1;
 
         assertThatThrownBy(() -> {
-            new StarRate(rate);
+            StarRate.of(rate);
         }).isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -23,7 +23,7 @@ class StarRateTest {
     void starRateFloor() {
         Double rate = 3.353;
 
-        StarRate starRate = new StarRate(rate);
+        StarRate starRate = StarRate.of(rate);
 
         assertThat(starRate.getValue()).isEqualTo(3.3);
     }
