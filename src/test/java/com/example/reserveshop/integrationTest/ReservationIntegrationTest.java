@@ -3,7 +3,6 @@ package com.example.reserveshop.integrationTest;
 import com.example.reserveshop.member.domain.Member;
 import com.example.reserveshop.member.domain.MemberRepository;
 import com.example.reserveshop.member.vo.*;
-import com.example.reserveshop.member.web.dto.CreateMemberRequest;
 import com.example.reserveshop.reservation.domain.entity.Reservation;
 import com.example.reserveshop.reservation.domain.repository.ReservationRepository;
 import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
@@ -24,7 +23,6 @@ import org.springframework.http.MediaType;
 
 import java.time.*;
 import java.util.List;
-import java.util.Optional;
 
 import static com.example.reserveshop.reservation.domain.vo.ReserveStatus.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -92,11 +90,13 @@ public class ReservationIntegrationTest extends IntegrationTest {
     @Test
     @DisplayName("예약을 생성합니다.")
     void createReservationSuccess() {
+        LocalDateTime reserveDateTime = LocalDateTime.parse("2020-03-10T12:00:00");
         // given
         CreateReservationRequest request = CreateReservationRequest.builder()
                 .storeId(store1.getId())
                 .memberId(member1.getId())
                 .phoneNumber(PHONE_NUMBER)
+                .reserveDateTime(reserveDateTime)
                 .build();
 
         doReturn(Instant.now(FIXED_CLOCK))
@@ -115,8 +115,7 @@ public class ReservationIntegrationTest extends IntegrationTest {
         assertThat(response.statusCode()).isEqualTo(201);
 
         ReservationInfo result = response.body().as(ReservationInfo.class);
-        LocalDateTime test = LocalDateTime.now(FIXED_CLOCK);
-        ReservationInfo answer = ReservationInfo.fromEntity(makeReservation(member1, store1, REQUEST, LocalDateTime.now(FIXED_CLOCK)));
+        ReservationInfo answer = ReservationInfo.fromEntity(makeReservation(member1, store1, REQUEST, reserveDateTime));
         assertThat(result).usingRecursiveComparison().ignoringFields("id", "reserveDateTime").isEqualTo(answer);
     }
 

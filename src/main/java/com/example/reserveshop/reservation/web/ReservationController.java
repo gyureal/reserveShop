@@ -1,7 +1,6 @@
 package com.example.reserveshop.reservation.web;
 
 import com.example.reserveshop.reservation.domain.service.ReservationService;
-import com.example.reserveshop.reservation.domain.vo.AcceptType;
 import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
 import com.example.reserveshop.reservation.web.dto.CreateReservationRequest;
 import com.example.reserveshop.reservation.web.dto.ReservationInfo;

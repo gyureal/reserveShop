@@ -31,7 +31,6 @@ public class ReservationService {
     private final MemberService memberService;
     private final StoreService storeService;
     private final ReserveHistoryService reserveHistoryService;
-    private final Clock clock;
 
     /**
      * 예약을 생성합니다.
@@ -46,7 +45,7 @@ public class ReservationService {
                 .store(storeService.getStoreById(request.getStoreId()))
                 .phoneNumber(PhoneNumber.of(request.getPhoneNumber()))
                 .status(REQUEST)
-                .reserveDateTime(LocalDateTime.now(clock))
+                .reserveDateTime(request.getReserveDateTime())
                 .build());
 
         reserveHistoryService.createBy(reservation);

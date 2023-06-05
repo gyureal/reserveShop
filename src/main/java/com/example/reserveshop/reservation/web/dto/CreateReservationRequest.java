@@ -13,4 +13,5 @@ public class CreateReservationRequest {
     private Long storeId;
     private Long memberId;
     private String phoneNumber;
+    private LocalDateTime reserveDateTime;
 }
