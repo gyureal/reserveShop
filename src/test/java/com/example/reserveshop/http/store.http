@@ -1,0 +1,21 @@
+
+### Send POST createStore - 상점 등록
+POST http://localhost:8080/stores
+Content-Type: application/json
+
+{
+  "storeName" : "맥도날드"
+  ,"adminMemberId" : 1
+  ,"address" : "서울시 강남구"
+  ,"description" : "놀러오세요"
+  ,"image" : "/ekfjdkw"
+  ,"phoneNumber" : "010-2222-3333"
+}
+
+### GET searchStore 상점 조회
+GET http://localhost:8080/stores?storeName=맥
+Accept: application/json
+
+### GET searchStoreById
+GET http://localhost:8080/stores/3
+Accept: application/json

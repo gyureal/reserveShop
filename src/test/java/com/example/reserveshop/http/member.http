@@ -1,0 +1,34 @@
+
+### Send POST createMember - PARTNER 회원 가입
+POST http://localhost:8080/members
+Content-Type: application/json
+
+{
+  "loginId" : "id0001"
+  ,"password" : "pw00011"
+  ,"memberName" : "김지유"
+  ,"phoneNumber" : "010-1111-1111"
+  ,"location" : "서울시 강남구"
+  ,"memberType" : "PARTNER"
+}
+
+### Send POST createMember - 일반화원 가입
+POST http://localhost:8080/members
+Content-Type: application/json
+
+{
+  "loginId" : "id0002"
+,"password" : "pw00022"
+,"memberName" : "김지유"
+,"phoneNumber" : "010-1111-1112"
+,"location" : "서울시 강남구"
+,"memberType" : "GENERAL"
+}
+
+### GET searchMembers
+GET http://localhost:8080/members
+Accept: application/json
+
+### GET searchMembersById
+GET http://localhost:8080/members/1
+Accept: application/json

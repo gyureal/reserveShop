@@ -1,0 +1,32 @@
+
+### Send POST createReservation - 예약 생성
+POST http://localhost:8080/reservations
+Content-Type: application/json
+
+{
+  "storeId" : 4
+  ,"memberId" : 1
+  ,"phoneNumber" : "010-2222-1111"
+  ,"reserveDateTime" : "2023-05-05T12:00:00"
+}
+
+### GET searchReservationById id로 예약 조회
+GET http://localhost:8080/reservations/6
+Accept: application/json
+
+### GET searchReservations 예약 목록 조회
+GET http://localhost:8080/reservations?storeId=4&status=REQUEST&from=2023-05-05&to=2023-05-05
+Accept: application/json
+
+### POST approveReservation 예약 승인 처리
+POST http://localhost:8080/reservations/6/approve
+Accept: application/json
+
+### POST rejectReservation 예약 거절 처리
+POST http://localhost:8080/reservations/8/reject
+Accept: application/json
+
+### POST visitReservation 예약 방문 처리
+POST http://localhost:8080/reservations/6/visit
+Accept: application/json
+
