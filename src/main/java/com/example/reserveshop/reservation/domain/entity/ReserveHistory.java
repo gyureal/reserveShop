@@ -26,6 +26,7 @@ public class ReserveHistory {
      * 상태값 변경 시, 새 히스토리를 추가하세요.
      */
     @JoinColumn(updatable = false)
+    @Enumerated(EnumType.STRING)
     private ReserveStatus statusHistory;
     @CreatedDate
     private LocalDateTime createdAt;
