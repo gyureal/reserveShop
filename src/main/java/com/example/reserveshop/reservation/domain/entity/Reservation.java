@@ -49,13 +49,17 @@ public class Reservation {
         return this.status.equals(status);
     }
 
+    public void changeStatus(ReserveStatus status) {
+        this.status = status;
+    }
+
     /**
      * 예약을 승인 처리를 합니다.
      * @throws IllegalStateException 예약 상태가 요청(APPROVE)이 아닌 경우
      */
     public void approve() {
         validateApproveOrReject();
-        this.status = APPROVED;
+        changeStatus(APPROVED);
     }
 
     /**
@@ -64,7 +68,7 @@ public class Reservation {
      */
     public void reject() {
         validateApproveOrReject();
-        this.status = REJECTED;
+        changeStatus(REJECTED);
     }
 
     private void validateApproveOrReject() {
@@ -95,10 +99,6 @@ public class Reservation {
         if (!isStatus(APPROVED)) {
             throw new IllegalStateException(STATUS_MUST_APPROVED);
         }
-    }
-
-    public void changeStatus(ReserveStatus status) {
-        this.status = status;
     }
 
     @Override

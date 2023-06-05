@@ -8,10 +8,8 @@ import com.example.reserveshop.reservation.domain.vo.AcceptType;
 import com.example.reserveshop.reservation.domain.vo.ReserveStatus;
 import com.example.reserveshop.reservation.domain.vo.SearchDateRange;
 import com.example.reserveshop.reservation.web.dto.CreateReservationRequest;
-import com.example.reserveshop.store.domain.entity.Store;
 import com.example.reserveshop.store.domain.service.StoreService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.boot.model.source.internal.hbm.AttributesHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +30,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final MemberService memberService;
     private final StoreService storeService;
+    private final ReserveHistoryService reserveHistoryService;
     private final Clock clock;
 
     /**
@@ -42,13 +41,16 @@ public class ReservationService {
     @Transactional
     public Reservation createReservation(CreateReservationRequest request) {
 
-        return reservationRepository.save(Reservation.builder()
-                        .member(memberService.getMember(request.getMemberId()))
-                        .store(storeService.getStoreById(request.getStoreId()))
-                        .phoneNumber(PhoneNumber.of(request.getPhoneNumber()))
-                        .status(REQUEST)
-                        .reserveDateTime(LocalDateTime.now(clock))
-                        .build());
+        Reservation reservation = reservationRepository.save(Reservation.builder()
+                .member(memberService.getMember(request.getMemberId()))
+                .store(storeService.getStoreById(request.getStoreId()))
+                .phoneNumber(PhoneNumber.of(request.getPhoneNumber()))
+                .status(REQUEST)
+                .reserveDateTime(LocalDateTime.now(clock))
+                .build());
+
+        reserveHistoryService.createBy(reservation);
+        return reservation;
     }
 
     /**
@@ -95,6 +97,7 @@ public class ReservationService {
             reservation.reject();
             return;
         }
+        reserveHistoryService.createBy(reservation);
     }
 
     /**
